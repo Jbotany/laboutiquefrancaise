@@ -7,7 +7,8 @@
 
     <p>Bienvenue {{ app.user.firstname }} dans votre compte.</p>
 
-    - <a href="{{ path('account_password') }}">Modifier mon mot de passe</a>
+    <div>- <a href="{{ path('account_password') }}">Modifier mon mot de passe</a></div>
+    <div>- <a href="{{ path('account_adress') }}">Gérer mes adresses</a></div>
 
 
 {% endblock %}
