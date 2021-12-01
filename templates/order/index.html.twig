@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Valider ma commande - La Boutique Française{% endblock %}
+
+{% block content %}
+    <h1>Je passe ma commande</h1>
+    <p>Choisissez vos préférences de livraison</p>
+    <div class="row">
+        <div class="col-md-6">
+            <div><strong>Choisir mon adresse de livraison</strong></div>
+            {% set formHtml %}
+                {{ form(form) }}
+            {% endset %}
+            {{ formHtml|replace({'[br]' : '<br/>'})|raw }}
+            <div><strong>Choisir mon transporteur</strong></div>
+        </div>
+        <div class="col-md-6">
+            <div><strong>Récap de ma commande</strong></div>
+            <div><strong>Bouton pour payer</strong></div>
+        </div>
+    </div>
+{% endblock %}
