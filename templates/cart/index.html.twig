@@ -6,38 +6,60 @@
     <h1>Mon panier</h1>
     Retrouvez l'ensemble des produits que vous avez sélectionnés.
 
-    <table class="table mt-3">
-        <thead>
-        <tr>
-            <th scope="col">Produit</th>
-            <th scope="col"></th>
-            <th scope="col">Quantité</th>
-            <th scope="col">Prix</th>
-            <th scope="col">Total</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% set total = 0 %}
-        {% for product in cart %}
-        <tr>
-            <th scope="row">
-                <img src="/upload/files/{{ product.product.illustration }}" alt="{{ product.product.name }}" height="75px">
-            </th>
-            <td>
-                {{ product.product.name }}<br/>
-                <small>{{ product.product.subtitle }}</small>
-            </td>
-            <td>x {{ product.quantity }}</td>
-            <td>{{ (product.product.price / 100)|number_format(2, ',') }} &euro;</td>
-            <td>{{ (product.product.price * product.quantity / 100)|number_format(2, ',') }} &euro;</td>
-        </tr>
-            {% set total = total + (product.product.price * product.quantity) %}
-        {% endfor %}
-        </tbody>
-    </table>
-    <div class="text-right mb-5">
-        <div><strong>Nombre de produits :</strong> {{ cart|length }}</div>
-        <div><strong>Total de mon panier :</strong> {{ (total / 100)|number_format(2, ',') }} &euro;</div>
-        <a href="" class="btn btn-success btn-block mt-3">Valider mon panier</a>
-    </div>
+    {% if cart|length > 0 %}
+        <table class="table mt-3">
+            <thead>
+            <tr>
+                <th scope="col">Produit</th>
+                <th scope="col"></th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Total</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set total = 0 %}
+            {% for product in cart %}
+                <tr>
+                    <th scope="row">
+                        <img src="/upload/files/{{ product.product.illustration }}" alt="{{ product.product.name }}"
+                             height="75px">
+                    </th>
+                    <td>
+                        {{ product.product.name }}<br/>
+                        <small>{{ product.product.subtitle }}</small>
+                    </td>
+                    <td>
+                        <a href="{{ path('decrease_from_cart', {'id': product.product.id}) }}">
+                            <img src="{{ asset('assets/img/minus.png') }}" height="10px" alt="Enlever un exemplaire">
+                        </a>
+                        x {{ product.quantity }}
+                        <a href="{{ path('add_to_cart', {'id': product.product.id}) }}">
+                            <img src="{{ asset('assets/img/plus.png') }}" height="12px" alt="Ajouter un exemplaire">
+                        </a>
+                    </td>
+                    <td>{{ (product.product.price / 100)|number_format(2, ',') }} &euro;</td>
+                    <td>{{ (product.product.price * product.quantity / 100)|number_format(2, ',') }} &euro;</td>
+                    <td>
+                        <a href="{{ path('delete_from_cart', {'id' : product.product.id}) }}">
+                            <img src="{{ asset('assets/img/delete.png') }}" height="18px" alt="Supprimer mon produit">
+                        </a>
+                    </td>
+                </tr>
+                {% set total = total + (product.product.price * product.quantity) %}
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-right mb-5">
+            <div><strong>Nombre de produits :</strong> {{ cart|length }}</div>
+            <div><strong>Total de mon panier :</strong> {{ (total / 100)|number_format(2, ',') }} &euro;</div>
+            <a href="" class="btn btn-success btn-block mt-3">Valider mon panier</a>
+        </div>
+    {% else %}
+        <hr/>
+        <div class="mb-3">
+            <strong>Votre panier est vide</strong>
+        </div>
+    {% endif %}
 {% endblock %}
