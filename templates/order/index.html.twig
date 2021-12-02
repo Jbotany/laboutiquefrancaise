@@ -7,17 +7,15 @@
     <p>Choisissez vos préférences de livraison</p>
     <div class="row">
         <div class="col-md-6">
-            <div>
-                <strong>Choisir mon adresse de livraison</strong>
-            </div>
             {% set formHtml %}
-                {{ form(form) }}
+                {{ form_start(form, {action:path('order_recap')}) }}
+                {{ form_end(form) }}
             {% endset %}
             {{ formHtml|replace({'[br]' : '<br/>'})|raw }}
         </div>
         <div class="col-md-6">
+            <div><strong>Récap de ma commande</strong></div>
             <div class="order-summary">
-                <p class="text-center"><strong>Récap de ma commande</strong></p>
                 {% for key, product in cart %}
                     <div class="row {% if key > 0 %}mt-2{% endif %}">
                         <div class="col-2">
