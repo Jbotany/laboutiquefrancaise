@@ -18,7 +18,7 @@ class OrderType extends AbstractType
         $builder
             ->add('addresses', EntityType::class, [
                 'class' => Adress::class,
-                'label' => 'Choisissez votre adresse de livraison',
+                'label' => false,
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,

@@ -4,11 +4,12 @@
 
 {% block content %}
     <h1>Je passe ma commande</h1>
-    <p>Choisissez vos préférences de livraison</p>
     <div class="row">
         <div class="col-md-6">
             {% set formHtml %}
                 {{ form_start(form, {action:path('order_recap')}) }}
+                    {{ form_label(form.addresses, 'Choisissez votre adresse de livraison') }}
+                <a href="{{ path('account_adress_add') }}">Ajouter une nouvelle adresse</a>
                 {{ form_end(form) }}
             {% endset %}
             {{ formHtml|replace({'[br]' : '<br/>'})|raw }}
