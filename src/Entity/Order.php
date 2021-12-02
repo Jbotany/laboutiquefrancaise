@@ -168,4 +168,13 @@ class Order
 
         return $this;
     }
+
+    public function getTotal(): float
+    {
+        $total = 0;
+        foreach ($this->getOrderDetails()->getValues() as $product) {
+            $total += $product->getprice() * $product->getQuantity();
+        }
+        return $total;
+    }
 }
