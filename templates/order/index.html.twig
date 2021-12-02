@@ -7,15 +7,33 @@
     <p>Choisissez vos préférences de livraison</p>
     <div class="row">
         <div class="col-md-6">
-            <div><strong>Choisir mon adresse de livraison</strong></div>
+            <div>
+                <strong>Choisir mon adresse de livraison</strong>
+            </div>
             {% set formHtml %}
                 {{ form(form) }}
             {% endset %}
             {{ formHtml|replace({'[br]' : '<br/>'})|raw }}
-            <div><strong>Choisir mon transporteur</strong></div>
         </div>
         <div class="col-md-6">
-            <div><strong>Récap de ma commande</strong></div>
+            <div class="order-summary">
+                <p class="text-center"><strong>Récap de ma commande</strong></p>
+                {% for key, product in cart %}
+                    <div class="row {% if key > 0 %}mt-2{% endif %}">
+                        <div class="col-2">
+                            <img src="/upload/files/{{ product.product.illustration }}" alt="{{ product.product.name }}"
+                                 height="75px">
+                        </div>
+                        <div class="col-8 my-auto">
+                            {{ product.product.name }}<br/>
+                            <small>{{ product.product.subtitle }}</small>
+                        </div>
+                        <div class="col-2 my-auto">
+                            x {{ product.quantity }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
             <div><strong>Bouton pour payer</strong></div>
         </div>
     </div>
